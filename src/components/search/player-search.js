@@ -1,35 +1,16 @@
 import AsyncSelect from 'react-select/async';
 import debounce from 'debounce-promise';
 
-export default function PlayerSearch({setState}) {
+export default function PlayerSearch({setPlayers}) {
 
     const addPlayerToPool = (player) => {
         let url = `http://localhost:3000/price?playerId=${player.id}`;
         fetch(url)
             .then(resp => resp.json())
             .then(resp => player.price = resp.price)
-            .then(() => setState((state) => {
-
-                const playerPoolColumn = state.columns['PLAYERPOOL'];
-
-                const newPlayerPoolColumn = {
-                    ...playerPoolColumn,
-                    playerIds: [...playerPoolColumn.playerIds, player.id]
-                };
-
-                const newState = {
-                    ...state,
-                    players: {
-                        ...state.players,
-                        [player.id]: player
-                    },
-                    columns: {
-                        ...state.columns,
-                        ['PLAYERPOOL']: newPlayerPoolColumn
-                    }
-                };
-                console.log(newState);
-                return newState;
+            .then(() => setPlayers((players) => {
+                player.state = 'PLAYERPOOL';
+                return [...players, player];
             }));
     }
 

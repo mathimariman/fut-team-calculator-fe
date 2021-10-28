@@ -5,12 +5,12 @@ import PlayerOverview from "./components/players/overview/player-overview";
 import initialData from "./data";
 
 function App() {
-    const [state, setState] = useState(initialData);
+    const [players, setPlayers] = useState(initialData);
 
     return (
         <Fragment>
-            <PlayerSearch setState={setState}/>
-            <PlayerOverview state={state} setState={setState}/>
+            <PlayerSearch setPlayers={setPlayers}/>
+            <PlayerOverview players={players} setPlayers={setPlayers}/>
         </Fragment>
     );
 }

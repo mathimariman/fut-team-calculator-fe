@@ -24,18 +24,22 @@ export const PlayerList = styled.div`
     min-height: 100px;
 `;
 
-const PlayerColumn = ({column, players}) => {
+const PlayerColumn = ({columnId, title, players}) => {
+
+    const filteredPlayers = players.filter(player => player.state === columnId);
+
     return (
         <Container>
-            <Title>{column.title}</Title>
-            <Droppable droppableId={column.id}>
+            <Title>{title}</Title>
+            <Droppable droppableId={columnId}>
                 {(provided, snapshot) => (
                     <PlayerList
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                         isDraggingOver={snapshot.isDraggingOver}
                     >
-                        {players.map((player, index) => <PlayerCard key={player.id} player={player} index={index}/>)}
+                        {filteredPlayers.map((player, index) => <PlayerCard key={player.id} player={player}
+                                                                            index={index}/>)}
                         {provided.placeholder}
                     </PlayerList>
                 )

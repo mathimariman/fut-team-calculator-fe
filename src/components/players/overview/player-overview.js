@@ -7,7 +7,7 @@ const Container = styled.div`
 `;
 
 
-const PlayerOverview = ({state, setState}) => {
+const PlayerOverview = ({players, setPlayers}) => {
 
     const onDragEnd = result => {
         const {destination, source, draggableId} = result;
@@ -16,62 +16,21 @@ const PlayerOverview = ({state, setState}) => {
             return;
         }
 
-        const startColumn = state.columns[source.droppableId];
-        const finishColumn = state.columns[destination.droppableId];
-
-        if (startColumn === finishColumn) {
-            const newPlayerIds = Array.from(startColumn.playerIds);
-            newPlayerIds.splice(source.index, 1);
-            newPlayerIds.splice(destination.index, 0, draggableId);
-            const newColumn = {
-                ...startColumn,
-                playerIds: newPlayerIds
-            };
-
-            const newState = {
-                ...state,
-                columns: {
-                    ...state.columns,
-                    [newColumn.id]: newColumn
-                }
-            }
-            setState(newState);
-        } else {
-            const startPlayerIds = Array.from(startColumn.playerIds);
-            startPlayerIds.splice(source.index, 1);
-            const newStartColumn = {
-                ...startColumn,
-                playerIds: startPlayerIds
-            }
-
-            const finishPlayerIds = Array.from(finishColumn.playerIds);
-            finishPlayerIds.splice(destination.index, 0, draggableId);
-            const newFinish = {
-                ...finishColumn,
-                playerIds: finishPlayerIds
-            };
-            const newState = {
-                ...state,
-                columns: {
-                    ...state.columns,
-                    [newStartColumn.id]: newStartColumn,
-                    [newFinish.id]: newFinish
-                }
-            }
-            setState(newState);
-        }
+        const newPlayers = [...players];
+        const player = newPlayers.find(player => player.id === draggableId);
+        player.state = destination.droppableId;
+        setPlayers(newPlayers);
     }
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Container>
-                {state.columnOrder.map((columnId) => {
-                    const column = state.columns[columnId];
-                    const players = column.playerIds.map((playerId) => state.players[playerId]);
-                    return <PlayerColumn key={column.id} column={column} players={players}/>;
-                })}
+                <PlayerColumn key='PLAYERPOOL' columnId='PLAYERPOOL' title='Player pool' players={players}/>
+                <PlayerColumn key='BUYING' columnId='BUYING' title='Buying' players={players}/>
+                <PlayerColumn key='SELLING' columnId='SELLING' title='Selling' players={players}/>
             </Container>
         </DragDropContext>
+
     );
 };
 export default PlayerOverview;
