@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import PlayerCard from "../card/player-card";
+import PlayerCard from "./player-card";
 import {Droppable} from "react-beautiful-dnd";
 
 export const Container = styled.div`
@@ -33,18 +33,13 @@ const PlayerColumn = ({columnId, title, players}) => {
             <Title>{title}</Title>
             <Droppable droppableId={columnId}>
                 {(provided, snapshot) => (
-                    <PlayerList
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        isDraggingOver={snapshot.isDraggingOver}
-                    >
-                        {filteredPlayers.map((player, index) => <PlayerCard key={player.id} player={player}
-                                                                            index={index}/>)}
+                    <PlayerList ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                isDraggingOver={snapshot.isDraggingOver}>
+                        {filteredPlayers.map((player) => <PlayerCard key={player.id} player={player}/>)}
                         {provided.placeholder}
                     </PlayerList>
-                )
-                }
-
+                )}
             </Droppable>
         </Container>
     )

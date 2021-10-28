@@ -14,6 +14,7 @@ export default function PlayerSearch({setPlayers}) {
             }));
     }
 
+
     const fetchPlayers = debounce(playerName => {
         let url = `http://localhost:3000/search?playerName=${playerName}`;
         return fetch(url)

@@ -25,9 +25,9 @@ const PlayerOverview = ({players, setPlayers}) => {
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Container>
-                <PlayerColumn key='PLAYERPOOL' columnId='PLAYERPOOL' title='Player pool' players={players}/>
-                <PlayerColumn key='BUYING' columnId='BUYING' title='Buying' players={players}/>
-                <PlayerColumn key='SELLING' columnId='SELLING' title='Selling' players={players}/>
+                <PlayerColumn columnId='PLAYERPOOL' title='Player pool' players={players}/>
+                <PlayerColumn columnId='BUYING' title='Buying' players={players}/>
+                <PlayerColumn columnId='SELLING' title='Selling' players={players}/>
             </Container>
         </DragDropContext>
 

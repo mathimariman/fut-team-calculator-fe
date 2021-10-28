@@ -11,17 +11,16 @@ export const Container = styled.div`
 `;
 
 
-const PlayerCard = ({player, index}) => {
+const PlayerCard = ({player}) => {
 
     return (
-        <Draggable draggableId={player.id} index={index}>
+        <Draggable draggableId={player.id}>
             {(provided, snapshot) => (
                 <Container
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    isDragging={snapshot.isDragging}
-                >
+                    isDragging={snapshot.isDragging}>
                     {player.label}
                 </Container>
             )}
