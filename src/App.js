@@ -1,25 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import PlayerSearch from "./components/search/player-search";
+import {Fragment, useState} from "react";
+import PlayerOverview from "./components/players/overview/player-overview";
+import initialData from "./data";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [state, setState] = useState(initialData);
+
+    return (
+        <Fragment>
+            <PlayerSearch setState={setState}/>
+            <PlayerOverview state={state} setState={setState}/>
+        </Fragment>
+    );
 }
 
 export default App;
