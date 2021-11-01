@@ -8,25 +8,35 @@ export const Container = styled.div`
     padding: 8px;
     margin-bottom: 8px;
     background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const ContentItem = styled.h3`
+`;
+
+export const Image = styled.img`
+   width: 70px;
+   height: 70px;
 `;
 
 
-const PlayerCard = ({player}) => {
-
+const PlayerCard = ({player, index}) => {
     return (
-        <Draggable draggableId={player.id}>
+        <Draggable draggableId={player.id} index={index}>
             {(provided, snapshot) => (
                 <Container
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     isDragging={snapshot.isDragging}>
-                    {player.label}
+                    <Image src={player.image}></Image>
+                    <ContentItem>{player.name}</ContentItem>
+                    <ContentItem>{player.price} </ContentItem>
                 </Container>
             )}
         </Draggable>
     )
-
 }
 
 export default PlayerCard;
