@@ -3,6 +3,8 @@ import debounce from 'debounce-promise';
 
 export default function PlayerSearch({setPlayers}) {
 
+    let selectedValue = null;
+
     const addPlayerToPool = (player) => {
         if (player && player.id) {
             let url = `http://localhost:3000/price?playerId=${player.id}`;
@@ -20,6 +22,11 @@ export default function PlayerSearch({setPlayers}) {
         }
     }
 
+    const clearSelectedValue = () => {
+        selectedValue = null;
+    }
+
+
     const fetchPlayers = debounce(playerName => {
         if (playerName) {
             let url = `http://localhost:3000/search?playerName=${playerName}`;
@@ -30,7 +37,8 @@ export default function PlayerSearch({setPlayers}) {
 
     return (
         <div>
-            <AsyncSelect loadOptions={fetchPlayers} onChange={addPlayerToPool}/>
+            <AsyncSelect onMenuClose={clearSelectedValue} loadOptions={fetchPlayers} onChange={addPlayerToPool}
+                         value={selectedValue}/>
         </div>
     );
 }
