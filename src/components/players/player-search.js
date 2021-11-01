@@ -10,8 +10,12 @@ export default function PlayerSearch({setPlayers}) {
                 .then(resp => resp.json())
                 .then(resp => player.price = resp.price)
                 .then(() => setPlayers((players) => {
-                    player.state = 'PLAYERPOOL';
-                    return [...players, player];
+                    if (!players.find(p => p.id === player.id)) {
+                        player.state = 'PLAYERPOOL';
+                        return [...players, player];
+                    } else {
+                        return players;
+                    }
                 }));
         }
     }
