@@ -7,7 +7,7 @@ export default function PlayerSearch({setPlayers}) {
 
     const addPlayerToPool = (player) => {
         if (player && player.id) {
-            let url = `http://localhost:3000/price?playerId=${player.id}`;
+            let url = `https://n55bu7r7fe.execute-api.eu-west-1.amazonaws.com/price?playerId=${player.id}`;
             fetch(url)
                 .then(resp => resp.json())
                 .then(resp => player.price = resp.price)
@@ -29,7 +29,7 @@ export default function PlayerSearch({setPlayers}) {
 
     const fetchPlayers = debounce(playerName => {
         if (playerName) {
-            let url = `http://localhost:3000/search?playerName=${playerName}`;
+            let url = `https://n55bu7r7fe.execute-api.eu-west-1.amazonaws.com/search?playerName=${playerName}`;
             return fetch(url)
                 .then(resp => resp.json());
         }
