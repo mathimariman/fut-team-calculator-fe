@@ -34,7 +34,7 @@ const PriceOverview = ({players, bank, setBank}) => {
             </form>
 
             <BudgetContainer isPositive={calculation >= 0}>
-                {calculation}
+                {calculation.toLocaleString()}
             </BudgetContainer>
 
         </Container>

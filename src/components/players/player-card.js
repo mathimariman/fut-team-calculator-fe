@@ -32,7 +32,7 @@ const PlayerCard = ({player, index}) => {
                     isDragging={snapshot.isDragging}>
                     <Image src={player.image}></Image>
                     <ContentItem>{player.name}</ContentItem>
-                    <ContentItem>{player.price} </ContentItem>
+                    <ContentItem>{player.price.toLocaleString()} </ContentItem>
                 </Container>
             )}
         </Draggable>
